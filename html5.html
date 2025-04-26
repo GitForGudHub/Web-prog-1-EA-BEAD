@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 API Demók</title>
+  <link rel="stylesheet" href="Assets/Styles/html5.css">
+  <link rel="stylesheet" href="Assets/Styles/header-footer.css">
+  <link rel="stylesheet" href="Assets/Styles/main.css">
+ 
+</head>
+<body>
+
+  <header>
+    <h1 style="text-align: center;">HTML5 Technológiák bemutatása</h1>
+    <nav>
+      <ul>
+          <a href="index.html">Főoldal</a>
+          <a class="active" href="html5.html">HTML 5 példák</a>
+          <a href="table.html">CRUD</a>
+          <a href="chart.html">Chart</a>
+          <a href="ajax.html">AJAX</a>
+          <a href="oojs.html">OOJS</a>
+      </ul>
+  </nav>
+</header>
+  <section>
+    <p>A példákat görgetéssel tudja megtekinteni</p>
+  </section>
+
+
+
+  <section id="storage">
+    <h2>Web Storage</h2>
+    <input type="text" id="storeInput" placeholder="Írj be valamit...">
+    <button onclick="saveToStorage()">Mentés</button>
+    <button onclick="readFromStorage()">Olvasás</button>
+  </section>
+
+ 
+  <section id="worker">
+    <h2>Web Worker</h2>
+    <button onclick="startWorker()"> Számolás indítása </button>
+    <p id="workerResult"></p>
+  </section>
+
+
+  <section id="sse">
+    <h2>Server-Sent Events (SSE)</h2>
+    <p>(Ez csak szerveren működik, itt szimulált üzenet)</p>
+    <button onclick="simulateSSE()">Szimulált SSE</button>
+    <p id="sseData"></p>
+  </section>
+
+
+  <section id="geo">
+    <h2>Geolocation API</h2>
+    <button onclick="getLocation()">Mutasd a helyzetem</button>
+    <p id="geoOutput"></p>
+  </section>
+
+
+  <section id="drag">
+    <h2>Drag & Drop API</h2>
+    <div id="dragDiv" draggable="true" ondragstart="drag(event)" style="width:100px;height:100px;background:red; padding: 5px;"></div>
+    <div id="dropZone" ondrop="drop(event)" ondragover="allowDrop(event)"
+         style="width:150px;height:150px;border:2px dashed black;margin-top:10px;"></div>
+  </section>
+
+
+  <section id="canvas">
+    <h2>Canvas példa</h2>
+    <canvas id="myCanvas" width="200" height="100"></canvas>
+  </section>
+
+
+  <section id="svg">
+    <h2>SVG példa</h2>
+    <svg width="200" height="100">
+      <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+    </svg>
+  </section>
+  <footer>
+    <h1>Szerzők</h1>
+    <div class="creator-container">
+        <p class="creator-name">Falusi Roland</p>
+        <p class="creator-code">M2B2JY</p>
+    </div>
+   <div class="creator-container">
+        <p class="creator-name">Zámbó Illés</p>
+        <p class="creator-code">ZFB08Y</p>
+    </div>
+</footer>
+  <script src="Assets/JS/script.js"></script>
+</body>
+</html>

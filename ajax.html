@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX CRUD alkalmazás</title>
+ <link rel="stylesheet" href="Assets/Styles/main.css">
+  <link rel="stylesheet" href="Assets/Styles/header-footer.css">
+  
+  <header>
+    <h1>Web-programozás-1 Előadás Házi feladat</h1>
+    <nav>
+      <ul>
+          <a href="index.html">Főoldal</a>
+          <a href="html5.html">HTML 5 példák</a>
+          <a href="table.html">CRUD</a>
+          <a href="chart.html">Chart</a>
+          <a class="active" href="ajax.html">AJAX</a>
+          <a href="oojs.html">OOJS</a>
+      </ul>
+  </nav>
+</header>
+  <h1>AJAX CRUD alkalmazás</h1>
+
+  <h2>Adatok lekérdezése (Read)</h2>
+  <button onclick="readData()">Adatok betöltése</button>
+  <div id="data"></div>
+  <div id="stats"></div>
+
+  <h2>Új rekord hozzáadása (Create)</h2>
+  <input type="text" id="nameCreate" placeholder="Név">
+  <input type="text" id="heightCreate" placeholder="Magasság">
+  <input type="text" id="weightCreate" placeholder="Súly">
+  <button onclick="createRecord()">Hozzáadás</button>
+  <div id="createMsg"></div>
+
+  <h2>Rekord módosítása (Update)</h2>
+  <input type="text" id="updateId" placeholder="ID">
+  <button onclick="getDataForId()">Adatok betöltése</button><br>
+  <input type="text" id="nameUpdate" placeholder="Név">
+  <input type="text" id="heightUpdate" placeholder="Magasság">
+  <input type="text" id="weightUpdate" placeholder="Súly">
+  <button onclick="updateRecord()">Módosítás</button>
+  <div id="updateMsg"></div>
+
+  <h2>Rekord törlése (Delete)</h2>
+  <input type="text" id="deleteId" placeholder="ID">
+  <button onclick="deleteRecord()">Törlés</button>
+  <div id="deleteMsg"></div>
+
+ 
+
+  <footer>
+    <h1>Szerzők</h1>
+    <div class="creator-container">
+        <p class="creator-name">Falusi Roland</p>
+        <p class="creator-code">M2B2JY</p>
+    </div>
+   <div class="creator-container">
+        <p class="creator-name">Zámbó Illés</p>
+        <p class="creator-code">ZFB08Y</p>
+    </div>
+  </footer>
+  <script src="Assets/JS/ajax.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>

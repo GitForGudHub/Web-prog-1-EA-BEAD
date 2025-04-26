@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Chart – Vonaldiagram</title>
+  <link rel="stylesheet" href="Assets/Styles/header-footer.css">
+  <link rel="stylesheet" href="Assets/Styles/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    canvas {
+      max-width: 800px;
+      max-height: 400px;
+      display: block;
+      margin: 0 auto;
+    }
+    .container{
+      padding:75px;
+    }
+    th {
+  cursor: default; 
+  background-color: #eee;
+  background-color: white;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Chart – Vonaldiagram példa</h1>
+  
+  
+    <nav>
+      <ul>
+          <a href="index.html">Főoldal</a>
+          <a href="html5.html">HTML 5 példák</a>
+          <a href="table.html">CRUD</a>
+          <a class="active" href="chart.html" >Chart</a>
+          <a href="ajax.html">AJAX</a>
+          <a href="oojs.html">OOJS</a>
+      </ul>
+  </nav>
+  </header>
+  <div class="container">
+
+
+
+
+  </div>
+  <main>
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Hétfő</th>
+          <th>Kedd</th>
+          <th>Szerda</th>
+          <th>Csütörtök</th>
+          <th>Péntek</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.</td><td>12</td><td>19</td><td>3</td><td>5</td><td>2</td>
+        </tr>
+        <tr>
+          <td>2.</td><td>8</td><td>15</td><td>7</td><td>9</td><td>11</td>
+        </tr>
+        <tr>
+          <td>3.</td><td>20</td><td>10</td><td>14</td><td>6</td><td>3</td>
+        </tr>
+        <tr>
+          <td>4.</td><td>4</td><td>6</td><td>8</td><td>10</td><td>12</td>
+        </tr>
+        <tr>
+          <td>5.</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <canvas id="myChart"></canvas>
+  </main>
+
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek'],
+        datasets: [{
+          label: 'Kiválasztott sor adatai',
+          data: [],
+          borderColor: 'blue',
+          backgroundColor: 'lightblue',
+          fill: false,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const rows = document.querySelectorAll('#dataTable tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        const cells = Array.from(row.querySelectorAll('td')).slice(1);
+        const values = cells.map(cell => Number(cell.textContent));
+        chart.data.datasets[0].data = values;
+        chart.update();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React SPA - Kockadobó és Számkitaláló</title>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const DiceRoller = () => {
+        const [dices, setDices] = React.useState([1, 1]);
+        const diceEmojis = ["", "\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"];
+        
+        const rollDice = () => {
+          const newDices = [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
+          setDices(newDices);
+        };
+        const total = dices.reduce((acc, val) => acc + val, 0);
+
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen">
+            <h1 className="text-2xl mb-4">Kockadobó</h1>
+            <div className="text-6xl mb-4 flex space-x-4">
+              {dices.map((d, idx) => (<span key={idx}>{diceEmojis[d]}</span>))}
+            </div>
+            <div className="text-lg mb-4">Összeg: <strong>{total}</strong></div>
+            <button onClick={rollDice} className="px-6 py-2 bg-blue-500 text-white rounded">
+              Dobás
+            </button>
+          </div>
+        );
+      };
+
+      const NumberGuesser = () => {
+        const [target, setTarget] = React.useState(Math.floor(Math.random() * 100) + 1);
+        const [guess, setGuess] = React.useState("");
+        const [message, setMessage] = React.useState("");
+        const [attempts, setAttempts] = React.useState(0);
+
+        const handleGuess = () => {
+          const num = parseInt(guess);
+          if (isNaN(num)) return setMessage("Kérlek, számot írj be!");
+          setAttempts(prev => prev + 1);
+          if (num === target) {
+            setMessage(`Gratulálok! ${attempts + 1} próbálkozásból kitaláltad!`);
+          } else if (num < target) {
+            setMessage("Túl alacsony!");
+          } else {
+            setMessage("Túl magas!");
+          }
+        };
+
+        const resetGame = () => {
+          setTarget(Math.floor(Math.random() * 100) + 1);
+          setGuess("");
+          setMessage("");
+          setAttempts(0);
+        };
+
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
+            <h1 className="text-2xl mb-4">Számkitaláló</h1>
+            <p className="mb-2">Gondoltam egy számra 1 és 100 között. Találd ki!</p>
+            <input
+              type="number"
+              value={guess}
+              onChange={(e) => setGuess(e.target.value)}
+              placeholder="Írd be a tipped..."
+              className="px-4 py-2 mb-4 border border-gray-300 rounded"
+            />
+            <div className="flex gap-4 mb-4">
+              <button onClick={handleGuess} className="px-6 py-2 bg-blue-500 text-white rounded">
+                Tippelés
+              </button>
+              <button onClick={resetGame} className="px-6 py-2 bg-gray-500 text-white rounded">
+                Újrakezdés
+              </button>
+            </div>
+            <p>{message}</p>
+          </div>
+        );
+      };
+
+      const App = () => {
+        const [activeApp, setActiveApp] = React.useState("dice");
+
+        return (
+          <div className="flex flex-col items-center">
+            <div className="flex gap-6 mb-6">
+              <button onClick={() => setActiveApp("dice")} className="px-6 py-2 bg-green-500 text-white rounded">
+                Kockadobó
+              </button>
+              <button onClick={() => setActiveApp("guesser")} className="px-6 py-2 bg-green-500 text-white rounded">
+                Számkitaláló
+              </button>
+              <a href="#"></a><button>VISSZA</button>
+            </div>
+
+            {activeApp === "dice" && <DiceRoller />}
+            {activeApp === "guesser" && <NumberGuesser />}
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

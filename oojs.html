@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Kosár szimulátor</title>
+  <link rel="stylesheet" href="Assets/Styles/header-footer.css">
+  <link rel="stylesheet" href="Assets/Styles/main.css">
+  <style>
+    body { font-family: sans-serif; padding: 1em; }
+    .product, .cart-item { margin-bottom: 0.5em; }
+    .cart { margin-top: 1em; border-top: 1px solid #aaa; padding-top: 1em; }
+    button { padding: 5px 10px; margin-right: 5px; }
+    .container{padding: 50px;}
+  </style>
+</head>
+<body>
+    <header>
+        <h1>🛍️ Kosár szimulátor – OOJS</h1>
+      
+      
+        <nav>
+          <ul>
+              <a href="index.html">Főoldal</a>
+              <a href="html5.html">HTML 5 példák</a>
+              <a href="table.html">CRUD</a>
+              <a href="ajax.html">AJAX</a>
+              <a class="active"  href="oojs.html">OOJS</a>
+          </ul>
+      </nav>
+      </header>
+<div class="container">
+
+
+</div>
+  <h2>Elérhető termékek</h2>
+  <div id="product-list"></div>
+  <div class="cart" id="cart-display"></div>
+
+  <script>
+    class Product {
+      constructor(name, price) {
+        this.name = name;
+        this.price = price;
+      }
+    }
+
+    class CartItem {
+      constructor(product, quantity = 1) {
+        this.product = product;
+        this.quantity = quantity;
+      }
+
+      getTotal() {
+        return this.product.price * this.quantity;
+      }
+    }
+
+    class Cart {
+      constructor() {
+        this.items = [];
+      }
+
+      addProduct(product) {
+        const existing = this.items.find(item => item.product.name === product.name);
+        if (existing) {
+          existing.quantity++;
+        } else {
+          this.items.push(new CartItem(product));
+        }
+        this.render();
+      }
+
+      clearCart() {
+        this.items = [];
+        this.render();
+      }
+
+      render() {
+        const display = document.getElementById('cart-display');
+        display.innerHTML = "<h2>Kosár tartalma:</h2>";
+
+        if (this.items.length === 0) {
+          display.innerHTML += "<p>A kosár üres.</p>";
+          return;
+        }
+
+        this.items.forEach(item => {
+          const p = document.createElement("p");
+          p.className = "cart-item";
+          p.textContent = `${item.product.name} (${item.quantity} db) – ${item.getTotal()} Ft`;
+          display.appendChild(p);
+        });
+
+        const total = this.items.reduce((sum, item) => sum + item.getTotal(), 0);
+        const totalP = document.createElement("p");
+        totalP.innerHTML = `<strong>Végösszeg: ${total} Ft</strong>`;
+        display.appendChild(totalP);
+
+        const clearBtn = document.createElement("button");
+        clearBtn.textContent = "🧹 Kosár ürítése";
+        clearBtn.onclick = () => this.clearCart();
+        display.appendChild(clearBtn);
+      }
+    }
+
+    const cart = new Cart();
+
+    const products = [
+      new Product("Toll", 200),
+      new Product("Füzet", 350),
+      new Product("Radír", 100),
+      new Product("Hegyező", 250),
+      new Product("Színes ceruza készlet", 1200),
+      new Product("Mappa", 500),
+      new Product("Zselés toll", 300),
+      new Product("Ragasztó", 280),
+      new Product("Post-it jegyzet", 320),
+      new Product("Vonalzó", 180)
+    ];
+
+    const list = document.getElementById("product-list");
+    products.forEach(product => {
+      const btn = document.createElement("button");
+      btn.textContent = `+ ${product.name} (${product.price} Ft)`;
+      btn.onclick = () => cart.addProduct(product);
+      const div = document.createElement("div");
+      div.className = "product";
+      div.appendChild(btn);
+      list.appendChild(div);
+    });
+  </script>
+</body>
+</html>
