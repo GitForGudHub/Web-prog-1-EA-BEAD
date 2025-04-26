@@ -55,14 +55,14 @@ header nav {
 
 header nav a {
     text-decoration: none;
-    color: hsl(var(--foreground-color));
-    border: 2px solid hsl(var(--foreground-color));
+    background-color: aquamarine;
+    border: 2px solid cadetblue;
     padding: 5px 10px;
 }
 
 header nav a:hover {
-    background-color: hsl(var(--foreground-color));
-    color: hsl(var(--background-color));
+    background-color: aquamarine;
+    color: cadetblue;
 }
 .creator-container {
     display: flex;

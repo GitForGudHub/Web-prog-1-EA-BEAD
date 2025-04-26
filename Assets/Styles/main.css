@@ -41,9 +41,6 @@ body::after {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: 
-        radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), 
-        repeating-linear-gradient(180deg, hsla(var(--stripe-color)) 0, hsla(var(--stripe-color)) 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 15px);
     z-index: -5;
     pointer-events: none;
 }
