@@ -36,7 +36,7 @@ function show(id) {
   
   // Simulated SSE
   function simulateSSE() {
-    document.getElementById("sseData").textContent = "Üzenet a szervertől: Helló világ!";
+    document.getElementById("sseData").textContent = "Üzenet a szervertől: ÍZIRÁJDER ÖCSÉM!!";
   }
   
   // Geolocation

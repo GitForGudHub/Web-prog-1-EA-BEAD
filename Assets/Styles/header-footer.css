@@ -12,10 +12,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: center;
-
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 40%, rgba(0,212,255,0) 100%);
+    align-items: left;
 }
 
 footer {
@@ -32,10 +29,9 @@ footer {
     flex-direction: row;
     justify-content: flex-end;
     gap: 50px;
-    align-items: center;
+    align-items: left;
 
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 40%, rgba(0,212,255,0) 100%);
+
 }
 
 header img {
