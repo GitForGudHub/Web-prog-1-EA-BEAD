@@ -8,24 +8,25 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
   </head>
   <body class="bg-gray-100 font-sans">
     <div id="root"></div>
 
     <script type="text/babel">
       const DiceRoller = () => {
-        const [dices, setDices] = React.useState([1, 1]);
+        const [dices, setDices] = React.useState([1, 1, 1, 1]);
         const diceEmojis = ["", "\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"];
         
         const rollDice = () => {
-          const newDices = [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
+          const newDices = [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
           setDices(newDices);
         };
         const total = dices.reduce((acc, val) => acc + val, 0);
 
         return (
           <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-2xl mb-4">Kockadobó</h1>
+            <h1 className="text-2xl mb-4">Kockázó</h1>
             <div className="text-6xl mb-4 flex space-x-4">
               {dices.map((d, idx) => (<span key={idx}>{diceEmojis[d]}</span>))}
             </div>
@@ -38,7 +39,7 @@
       };
 
       const NumberGuesser = () => {
-        const [target, setTarget] = React.useState(Math.floor(Math.random() * 100) + 1);
+        const [target, setTarget] = React.useState(Math.floor(Math.random() * 1000) + 1);
         const [guess, setGuess] = React.useState("");
         const [message, setMessage] = React.useState("");
         const [attempts, setAttempts] = React.useState(0);
@@ -50,14 +51,14 @@
           if (num === target) {
             setMessage(`Gratulálok! ${attempts + 1} próbálkozásból kitaláltad!`);
           } else if (num < target) {
-            setMessage("Túl alacsony!");
+            setMessage("Kicsit feljebb!");
           } else {
-            setMessage("Túl magas!");
+            setMessage("Kicsit lejjeb!");
           }
         };
 
         const resetGame = () => {
-          setTarget(Math.floor(Math.random() * 100) + 1);
+          setTarget(Math.floor(Math.random() * 1000) + 1);
           setGuess("");
           setMessage("");
           setAttempts(0);
@@ -65,8 +66,8 @@
 
         return (
           <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50">
-            <h1 className="text-2xl mb-4">Számkitaláló</h1>
-            <p className="mb-2">Gondoltam egy számra 1 és 100 között. Találd ki!</p>
+            <h1 className="text-2xl mb-4">Numero-Guessr</h1>
+            <p className="mb-2">Van egy számom számodra 1 és 1000 között. Sok sikert az eltaláláshoz!</p>
             <input
               type="number"
               value={guess}
@@ -94,12 +95,14 @@
           <div className="flex flex-col items-center">
             <div className="flex gap-6 mb-6">
               <button onClick={() => setActiveApp("dice")} className="px-6 py-2 bg-green-500 text-white rounded">
-                Kockadobó
+                Kockázó
               </button>
               <button onClick={() => setActiveApp("guesser")} className="px-6 py-2 bg-green-500 text-white rounded">
-                Számkitaláló
+                Numero-Guessr
               </button>
-              <a href="#"></a><button>VISSZA</button>
+              <a href="../index.html">
+                <button>VISSZA</button>
+                </a>
             </div>
 
             {activeApp === "dice" && <DiceRoller />}

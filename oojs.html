@@ -2,20 +2,20 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Kosár szimulátor</title>
+  <title>OOJS összeadás és megszámolás</title>
   <link rel="stylesheet" href="Assets/Styles/header-footer.css">
   <link rel="stylesheet" href="Assets/Styles/main.css">
   <style>
     body { font-family: sans-serif; padding: 1em; }
-    .product, .cart-item { margin-bottom: 0.5em; }
-    .cart { margin-top: 1em; border-top: 1px solid #aaa; padding-top: 1em; }
+    .someitem, .something-thingamabob { margin-bottom: 0.5em; }
+    .something { margin-top: 1em; border-top: 1px solid #aaa; padding-top: 1em; }
     button { padding: 5px 10px; margin-right: 5px; }
     .container{padding: 50px;}
   </style>
 </head>
 <body>
     <header>
-        <h1>OOJS</h1>
+        <h1>OOJS - összead és számol</h1>
       
       
         <nav>
@@ -25,6 +25,7 @@
               <a href="table.html">CRUD</a>
               <a href="ajax.html">AJAX</a>
               <a class="active"  href="oojs.html">OOJS</a>
+              <a href="REACT/index.html">REACT</a>
           </ul>
       </nav>
       </header>
@@ -32,99 +33,95 @@
 
 
 </div>
-  <h2>Elérhető termékek</h2>
-  <div id="product-list"></div>
-  <div class="cart" id="cart-display"></div>
+  <h2>Elemek</h2>
+  <div id="someitem-list"></div>
+  <div class="something" id="something-display"></div>
 
   <script>
-    class Product {
-      constructor(name, price) {
+    class Someitem {
+      constructor(name, value) {
         this.name = name;
-        this.price = price;
+        this.value = value;
       }
     }
 
-    class CartItem {
-      constructor(product, quantity = 1) {
-        this.product = product;
-        this.quantity = quantity;
+    class SomethingItem {
+      constructor(someitem, amount = 1) {
+        this.someitem = someitem;
+        this.amount = amount;
       }
 
       getTotal() {
-        return this.product.price * this.quantity;
+        return this.someitem.value * this.amount;
       }
     }
 
-    class Cart {
+    class Something {
       constructor() {
         this.items = [];
       }
 
-      addProduct(product) {
-        const existing = this.items.find(item => item.product.name === product.name);
+      addSomeitem(someitem) {
+        const existing = this.items.find(item => item.someitem.name === someitem.name);
         if (existing) {
-          existing.quantity++;
+          existing.amount++;
         } else {
-          this.items.push(new CartItem(product));
+          this.items.push(new SomethingItem(someitem));
         }
         this.render();
       }
 
-      clearCart() {
+      clearSomething() {
         this.items = [];
         this.render();
       }
 
       render() {
-        const display = document.getElementById('cart-display');
-        display.innerHTML = "<h2>Kosár tartalma:</h2>";
+        const display = document.getElementById('something-display');
+        display.innerHTML = "<h2>Kiválaszott elemek:</h2>";
 
         if (this.items.length === 0) {
-          display.innerHTML += "<p>A kosár üres.</p>";
+          display.innerHTML += "<p>Nincs elem kiválasztva.</p>";
           return;
         }
 
         this.items.forEach(item => {
           const p = document.createElement("p");
-          p.className = "cart-item";
-          p.textContent = `${item.product.name} (${item.quantity} db) – ${item.getTotal()} Ft`;
+          p.className = "something-thingamabob";
+          p.textContent = `${item.someitem.name} (${item.amount} db) – ${item.getTotal()} `;
           display.appendChild(p);
         });
 
         const total = this.items.reduce((sum, item) => sum + item.getTotal(), 0);
         const totalP = document.createElement("p");
-        totalP.innerHTML = `<strong>Végösszeg: ${total} Ft</strong>`;
+        totalP.innerHTML = `<strong>Elemek értéke: ${total} </strong>`;
         display.appendChild(totalP);
 
         const clearBtn = document.createElement("button");
-        clearBtn.textContent = "🧹 Kosár ürítése";
-        clearBtn.onclick = () => this.clearCart();
+        clearBtn.textContent = " törlés";
+        clearBtn.onclick = () => this.clearSomething();
         display.appendChild(clearBtn);
       }
     }
 
-    const cart = new Cart();
+    const something = new Something();
 
-    const products = [
-      new Product("Toll", 200),
-      new Product("Füzet", 350),
-      new Product("Radír", 100),
-      new Product("Hegyező", 250),
-      new Product("Színes ceruza készlet", 1200),
-      new Product("Mappa", 500),
-      new Product("Zselés toll", 300),
-      new Product("Ragasztó", 280),
-      new Product("Post-it jegyzet", 320),
-      new Product("Vonalzó", 180)
+    const someitems = [
+      new Someitem("Első elem", 10),
+      new Someitem("Második elem", 20),
+      new Someitem("Harmadik elem", 50),
+      new Someitem("Negyedik elem", 100),
+      new Someitem("Ötödik elem", 200),
+      new Someitem("Hatodik elem", 500)
     ];
 
-    const list = document.getElementById("product-list");
-    products.forEach(product => {
+    const list = document.getElementById("someitem-list");
+    someitems.forEach(someitem => {
       const btn = document.createElement("button");
-      btn.textContent = `+ ${product.name} (${product.price} Ft)`;
-      btn.onclick = () => cart.addProduct(product);
+      btn.textContent = `+ ${someitem.name} (${someitem.value} )`;
+      btn.onclick = () => something.addSomeitem(someitem);
       const div = document.createElement("div");
-      div.className = "product";
+      div.className = "someitem";
       div.appendChild(btn);
       list.appendChild(div);
     });
